@@ -4,7 +4,7 @@ from doubly_linked_list import DoublyLinkedList
 # sys.path.append('../doubly_linked_list')
 
 
-class Queue:
+class Queue:  # FIFO
     def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
