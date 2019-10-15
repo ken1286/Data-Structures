@@ -28,8 +28,9 @@ class LRUCache:
 
         if key in self.storage and self.size > 0:
             get_node = self.storage[key]  # node = value
-            self.order.add_to_head({key: get_node})
-            return get_node
+            self.order.move_to_end(get_node)
+            print(get_node.value)
+            return get_node.value[1]
         return None
 
     """
@@ -50,3 +51,8 @@ class LRUCache:
         if self.size > self.limit:
             self.order.remove_from_tail()
             self.size -= 1
+
+
+a = LRUCache(10)
+
+a.get()
