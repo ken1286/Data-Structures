@@ -25,11 +25,10 @@ class LRUCache:
     """
 
     def get(self, key):
-
+        # Get the item or handle none
         if key in self.storage and self.size > 0:
             get_node = self.storage[key]  # node = value
             self.order.move_to_end(get_node)
-            print(get_node.value)
             return get_node.value[1]
         return None
 
@@ -45,18 +44,21 @@ class LRUCache:
     """
 
     def set(self, key, value):
+        # If key already exists, overwrite the old value and move to end
         if key in self.storage:
             set_node = self.storage[key]
             set_node.value = (key, value)
             self.order.move_to_end(set_node)
-            self.size += 1
             return
 
+        # if cache is full, remove oldest entry in the dict and DLL
         if self.size >= self.limit:
             node = self.order.head
             del self.storage[node.value[0]]
             self.order.remove_from_head()
             self.size -= 1
+
+        # add to dictionary and DLL if not already in them
         self.order.add_to_tail((key, value))
         self.storage[key] = self.order.tail
         self.size += 1
