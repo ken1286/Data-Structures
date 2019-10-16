@@ -53,9 +53,9 @@ class LRUCache:
 
         # if cache is full, remove oldest entry in the dict and DLL
         if self.size >= self.limit:
-            node = self.order.head
-            del self.storage[node.value[0]]
-            self.order.remove_from_head()
+            oldest_node = self.order.head
+            del self.storage[oldest_node.value[0]]
+            self.order.remove_from_head()  # delete oldest node
             self.size -= 1
 
         # add to dictionary and DLL if not already in them
