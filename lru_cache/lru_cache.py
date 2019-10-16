@@ -45,14 +45,18 @@ class LRUCache:
     """
 
     def set(self, key, value):
-        self.storage[key] = value
-        self.order.add_to_head({key: value})
-        self.size += 1
-        if self.size > self.limit:
-            self.order.remove_from_tail()
+        if key in self.storage:
+            set_node = self.storage[key]
+            set_node.value = (key, value)
+            self.order.move_to_end(set_node)
+            self.size += 1
+            return
+
+        if self.size >= self.limit:
+            node = self.order.head
+            del self.storage[node.value[0]]
+            self.order.remove_from_head()
             self.size -= 1
-
-
-a = LRUCache(10)
-
-a.get()
+        self.order.add_to_tail((key, value))
+        self.storage[key] = self.order.tail
+        self.size += 1
