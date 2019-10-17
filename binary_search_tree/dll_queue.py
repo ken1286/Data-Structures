@@ -12,14 +12,14 @@ class Queue:  # FIFO
 
     def enqueue(self, value):
         self.storage.add_to_tail(value)
-        self.size = self.storage.__len__()
+        self.size += 1
 
     def dequeue(self):
         if not self.storage.head:
             return None
         value = self.storage.head.value
         self.storage.remove_from_head()
-        self.size = self.storage.__len__()
+        self.size -= 1
         return value
 
     def len(self):
